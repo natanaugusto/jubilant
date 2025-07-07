@@ -60,6 +60,12 @@ db: ## Access the database container
 	@echo -e "$(BLUE)Accessing the database container...$(NC)"
 	docker compose -f $(COMPOSE_FILE) exec $(DB_HOST) mysql -u$(DB_USER) -p$(DB_PASSWORD) $(DB_DATABASE) -P $(DB_PORT)
 
+pnpm: ## Run pnpm commands in the web container
+	@$(EXEC_CMD) "pnpm $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))"
+
 api\:dev: ## Start the API server in development mode
 	@echo -e "$(BLUE)Starting API server in development mode...$(NC)"
 	$(EXEC_CMD) "pnpm run api:dev"
+
+%:
+	@:
