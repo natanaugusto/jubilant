@@ -5,6 +5,7 @@ endif
 
 SHELL := /bin/bash
 
+DB_HOST ?= db
 DB_PORT ?= 3306
 DB_DATABASE ?= database
 DB_USER ?= user
@@ -12,7 +13,6 @@ DB_PASSWORD ?= secret
 DB_ROOT_PASSWORD ?= root
 
 COMPOSE_FILE = docker-compose.yaml
-DB_CONTAINER = db
 
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -56,4 +56,4 @@ status: ## Show container status
 
 db: ## Access the database container
 	@echo -e "$(BLUE)Accessing the database container...$(NC)"
-	docker compose -f $(COMPOSE_FILE) exec $(DB_CONTAINER) mysql -u$(DB_USER) -p$(DB_PASSWORD) $(DB_DATABASE) -P $(DB_PORT)
+	docker compose -f $(COMPOSE_FILE) exec $(DB_HOST) mysql -u$(DB_USER) -p$(DB_PASSWORD) $(DB_DATABASE) -P $(DB_PORT)

@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "description": "API for the Candy Shop application",
+  "version": "beta",
+  "type": "module",
+  "author": "Natan Augusto <natanaugusto@gmail.com>",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "fastify": "^5.4.0",
+    "mysql2": "^3.14.1"
+  }
+}

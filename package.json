@@ -1,0 +1,17 @@
+{
+  "name": "candyshop",
+  "description": "A simple candy shop application",
+  "version": "beta",
+  "author": "Natan Augusto <natanaugusto@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "dev": "pnpm --filter api dev"
+  },
+  "workspaces": [
+    "api"
+  ],
+  "packageManager": "pnpm@10.12.3",
+  "devDependencies": {
+    "pnpm": "^10.12.3"
+  }
+}
