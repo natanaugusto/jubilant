@@ -67,5 +67,13 @@ api\:dev: ## Start the API server in development mode
 	@echo -e "$(BLUE)Starting API server in development mode...$(NC)"
 	$(EXEC_CMD) "pnpm run api:dev"
 
+app\:dev: ## Start the Web App server in development mode
+	@echo -e "$(BLUE)Starting Web App server in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run app:dev"
+
+dev: ## Start the Web App and API servers in develop mode
+	@echo -e "$(BLUE)Starting Web App and API servers in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run dev"
+
 %:
 	@:

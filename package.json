@@ -5,10 +5,13 @@
   "author": "Natan Augusto <natanaugusto@gmail.com>",
   "license": "ISC",
   "scripts": {
-    "api:dev": "pnpm --filter api dev"
+    "dev": "pnpm --recursive --parallel --stream run dev",
+    "api:dev": "pnpm --filter api dev",
+    "app:dev": "pnpm --filter app dev"
   },
   "workspaces": [
-    "api"
+    "api",
+    "app"
   ],
   "packageManager": "pnpm@10.12.3",
   "devDependencies": {
