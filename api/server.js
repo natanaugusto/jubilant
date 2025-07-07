@@ -28,7 +28,7 @@ const server = async () => {
   }
 
   const port = process.env.API_PORT || 3000;
-  const host = process.env.API_HOST || "localhost";
+  const host = process.env.WEB_HOST || "localhost";
   await app.listen({ port, host });
   app.log.info(`Server is running on http://localhost:${port}`);
 }

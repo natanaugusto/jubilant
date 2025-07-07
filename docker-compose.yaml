@@ -1,13 +1,15 @@
 services:
-  api:
+  web:
     build:
       context: .
-      dockerfile: docker/api/Dockerfile
+      dockerfile: docker/web/Dockerfile
       args:
         API_PORT: ${API_PORT:-3000}
+    tty: true
+    init: true
     environment:
+      WEB_HOST: ${WEB_HOST:-0.0.0.0}
       API_PORT: ${API_PORT:-3000}
-      API_HOST: ${API_HOST:-0.0.0.0}
       DB_HOST: ${DB_HOST:-db}
       DB_PORT: ${DB_PORT:-3306}
       DB_DATABASE: ${DB_DATABASE:-database}
@@ -17,11 +19,11 @@ services:
     ports:
       - "${API_PORT:-3000}:${API_PORT:-3000}"
     volumes:
-      - .:/app
+      - .:/web
     depends_on:
       - db
     networks:
-      - candyshop
+      - candy
 
   db:
     build:
@@ -43,12 +45,12 @@ services:
       - db_data:/var/lib/mysql
       - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
     networks:
-      - candyshop
+      - candy
 
 volumes:
   db_data:
     driver: local
 
 networks:
-  candyshop:
+  candy:
     driver: bridge

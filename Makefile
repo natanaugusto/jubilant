@@ -13,6 +13,7 @@ DB_PASSWORD ?= secret
 DB_ROOT_PASSWORD ?= root
 
 COMPOSE_FILE = docker-compose.yaml
+EXEC_CMD = docker compose -f $(COMPOSE_FILE) exec web bash -c
 
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -30,7 +31,8 @@ help:
 
 up: ## Start all containers
 	@echo -e "$(BLUE)Starting Docker containers...$(NC)"; \
-	docker compose -f $(COMPOSE_FILE) up -d
+	docker compose -f $(COMPOSE_FILE) up -d && \
+	$(EXEC_CMD) "pnpm i --frozen-lockfile" \
 	@echo -e "$(GREEN)Containers started successfully!$(NC)"
 
 down: ## Stop all containers
@@ -57,3 +59,7 @@ status: ## Show container status
 db: ## Access the database container
 	@echo -e "$(BLUE)Accessing the database container...$(NC)"
 	docker compose -f $(COMPOSE_FILE) exec $(DB_HOST) mysql -u$(DB_USER) -p$(DB_PASSWORD) $(DB_DATABASE) -P $(DB_PORT)
+
+api\:dev: ## Start the API server in development mode
+	@echo -e "$(BLUE)Starting API server in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run api:dev"
