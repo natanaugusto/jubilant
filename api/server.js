@@ -1,32 +1,39 @@
 import fastify from "fastify";
-import mysql from "mysql2/promise";
 import { config } from "dotenv";
+import conn from "./conn.js";
+import products from "./routes/products.js";
+import clients from "./routes/clients.js";
+import orders from "./routes/orders.js";
 
 config();
 
 const app = fastify({ logger: true });
 
-const conn = mysql.createPool({
-  host: process.env.DB_HOST || "db",
-  port: process.env.DB_PORT || 3306,
-  user: process.env.DB_USER || "user",
-  password: process.env.DB_PASSWORD || "password",
-  database: process.env.DB_DATABASE || "database"
-});
+app.register(conn);
 
-app.get("/ping", async (_, reply) => {
-  reply.status(200).send();
-});
+const ping = (app) => {
+  const db = app.conn;
 
-const server = async () => {
-  try {
-    await conn.getConnection();
+  app.get("/ping", async (_, reply) => {
+    try {
+    await app.conn.getConnection();
     app.log.info("Connected to the database");
+    reply.status(200).send();
   } catch (err) {
     app.log.error("Database connection failed:", err);
-    process.exit(1);
+    reply.status(500).send();
   }
+  });
+}
 
+app.register(async function (app) {
+  app.register(ping)
+  app.register(products, {prefix: "/products"});
+  app.register(clients, {prefix: "/clients"});
+  app.register(orders, {prefix: "/orders"});
+}, {prefix: "/api"});
+
+const server = async () => {
   const port = process.env.API_PORT || 3000;
   const host = process.env.WEB_HOST || "localhost";
   await app.listen({ port, host });
