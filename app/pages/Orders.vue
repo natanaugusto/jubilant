@@ -8,14 +8,14 @@
 
     <v-data-table
       :headers="headers"
-      :items="produtos"
+      :items="orders"
       class="mt-4"
     >
       <template #item.actions="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon @click="remove(item.id_produto)">
+        <v-btn icon @click="remove(item.id_pedido)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
@@ -23,10 +23,10 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_produto ? 'Editar' : 'Novo' }} Order</v-card-title>
+        <v-card-title>{{ form.id_pedido ? 'Editar' : 'Novo' }} Order</v-card-title>
         <v-card-text>
-          <v-text-field label="Nome" v-model="form.nome" />
-          <v-text-field label="Preço" v-model="form.preco" type="number" />
+          <v-text-field label="Data" v-model="form.data" type="date" />
+          <v-select label="Cliente" v-model="form.id_cliente" :items="clients" item-title="nome" item-value="id_cliente" />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -40,26 +40,30 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import axios from '../axios'
 
-const produtos = ref([])
+const orders = ref([])
+const clients = ref([])
 const showForm = ref(false)
-const form = ref({ id_produto: null, nome: '', preco: '' })
+const form = ref({ id_pedido: null, data: '', id_cliente: '' })
 
 const headers = [
-  { text: 'ID', value: 'id_produto' },
-  { text: 'Nome', value: 'nome' },
-  { text: 'Preço', value: 'preco' },
+  { text: 'ID', value: 'id_pedido' },
+  { text: 'Data', value: 'data' },
+  { text: 'Cliente', value: 'id_cliente' },
   { text: 'Ações', value: 'actions', sortable: false },
 ]
 
 const Orders = async () => {
-  // const { data } = await axios.get('/api/produtos')
-  produtos.value = []
+  const { data } = await axios.get('/api/orders')
+  orders.value = data
+
+  const { data: clientsData } = await axios.get('/api/clients')
+  clients.value = clientsData
 }
 
 const openForm = () => {
-  form.value = { id_produto: null, nome: '', preco: '' }
+  form.value = { id_pedido: null, data: '', id_cliente: '' }
   showForm.value = true
 }
 
@@ -69,17 +73,17 @@ const edit = (item) => {
 }
 
 const save = async () => {
-  if (form.value.id_produto) {
-    await axios.put(`/api/produtos/${form.value.id_produto}`, form.value)
+  if (form.value.id_pedido) {
+    await axios.put(`/api/orders/${form.value.id_pedido}`, form.value)
   } else {
-    await axios.post('/api/produtos', form.value)
+    await axios.post('/api/orders', form.value)
   }
   showForm.value = false
   await Orders()
 }
 
 const remove = async (id) => {
-  await axios.delete(`/api/produtos/${id}`)
+  await axios.delete(`/api/orders/${id}`)
   await Orders()
 }
 

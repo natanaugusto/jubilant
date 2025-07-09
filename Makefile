@@ -32,7 +32,7 @@ help:
 up: ## Start all containers
 	@echo -e "$(BLUE)Starting Docker containers...$(NC)"; \
 	docker compose -f $(COMPOSE_FILE) up -d && \
-	$(EXEC_CMD) "pnpm i --frozen-lockfile" \
+	$(EXEC_CMD) "pnpm i --no-frozen-lockfile" \
 	@echo -e "$(GREEN)Containers started successfully!$(NC)"
 
 down: ## Stop all containers

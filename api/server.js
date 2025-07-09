@@ -1,4 +1,5 @@
 import fastify from "fastify";
+import cors from "@fastify/cors";
 import { config } from "dotenv";
 import conn from "./conn.js";
 import products from "./routes/products.js";
@@ -9,6 +10,10 @@ config();
 
 const app = fastify({ logger: true });
 
+app.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"]
+});
 app.register(conn);
 
 const ping = (app) => {

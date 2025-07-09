@@ -8,7 +8,7 @@
 
     <v-data-table
       :headers="headers"
-      :items="produtos"
+      :items="products"
       class="mt-4"
     >
       <template #item.actions="{ item }">
@@ -40,11 +40,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import axios from '../axios'
 
-const produtos = ref([])
+const products = ref([])
 const showForm = ref(false)
 const form = ref({ id_produto: null, nome: '', preco: '' })
+const endpoint = "/api/products"
 
 const headers = [
   { text: 'ID', value: 'id_produto' },
@@ -54,8 +55,8 @@ const headers = [
 ]
 
 const fetchProducts = async () => {
-  // const { data } = await axios.get('/api/produtos')
-  produtos.value = []
+  const { data } = await axios.get(endpoint)
+  products.value = data
 }
 
 const openForm = () => {
@@ -70,16 +71,16 @@ const edit = (item) => {
 
 const save = async () => {
   if (form.value.id_produto) {
-    await axios.put(`/api/produtos/${form.value.id_produto}`, form.value)
+    await axios.put(`/api/products/${form.value.id_produto}`, form.value)
   } else {
-    await axios.post('/api/produtos', form.value)
+    await axios.post(endpoint, form.value)
   }
   showForm.value = false
   await fetchProducts()
 }
 
 const remove = async (id) => {
-  await axios.delete(`/api/produtos/${id}`)
+  await axios.delete(`/api/products/${id}`)
   await fetchProducts()
 }
 

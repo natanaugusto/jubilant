@@ -8,14 +8,14 @@
 
     <v-data-table
       :headers="headers"
-      :items="produtos"
+      :items="clients"
       class="mt-4"
     >
       <template #item.actions="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon @click="remove(item.id_produto)">
+        <v-btn icon @click="remove(item.id_cliente)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
@@ -23,10 +23,10 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_produto ? 'Editar' : 'Novo' }} Client</v-card-title>
+        <v-card-title>{{ form.id_cliente ? 'Editar' : 'Novo' }} Client</v-card-title>
         <v-card-text>
           <v-text-field label="Nome" v-model="form.nome" />
-          <v-text-field label="Preço" v-model="form.preco" type="number" />
+          <v-text-field label="E-mail" v-model="form.email" />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -40,26 +40,26 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import axios from '../axios'
 
-const produtos = ref([])
+const clients = ref([])
 const showForm = ref(false)
-const form = ref({ id_produto: null, nome: '', preco: '' })
+const form = ref({ id_cliente: null, nome: '', email: '' })
 
 const headers = [
-  { text: 'ID', value: 'id_produto' },
+  { text: 'ID', value: 'id_cliente' },
   { text: 'Nome', value: 'nome' },
-  { text: 'Preço', value: 'preco' },
+  { text: 'E-mail', value: 'email' },
   { text: 'Ações', value: 'actions', sortable: false },
 ]
 
 const Clients = async () => {
-  // const { data } = await axios.get('/api/produtos')
-  produtos.value = []
+  const { data } = await axios.get('/api/clients')
+  clients.value = data
 }
 
 const openForm = () => {
-  form.value = { id_produto: null, nome: '', preco: '' }
+  form.value = { id_cliente: null, nome: '', email: '' }
   showForm.value = true
 }
 
@@ -69,17 +69,17 @@ const edit = (item) => {
 }
 
 const save = async () => {
-  if (form.value.id_produto) {
-    await axios.put(`/api/produtos/${form.value.id_produto}`, form.value)
+  if (form.value.id_cliente) {
+    await axios.put(`/api/clients/${form.value.id_cliente}`, form.value)
   } else {
-    await axios.post('/api/produtos', form.value)
+    await axios.post('/api/clients', form.value)
   }
   showForm.value = false
   await Clients()
 }
 
 const remove = async (id) => {
-  await axios.delete(`/api/produtos/${id}`)
+  await axios.delete(`/api/clients/${id}`)
   await Clients()
 }
 
