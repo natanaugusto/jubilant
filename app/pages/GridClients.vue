@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-toolbar flat>
-      <v-toolbar-title>Clients</v-toolbar-title>
+      <v-toolbar-title>Clientes</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" @click="openForm()">Novo Client</v-btn>
+      <v-btn color="primary" @click="openForm()">Novo Cliente</v-btn>
     </v-toolbar>
 
     <v-data-table :headers="headers" :items="clients" class="mt-4">
@@ -19,7 +19,7 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_cliente ? "Editar" : "Novo" }} Client</v-card-title>
+        <v-card-title>{{ form.id_cliente ? "Editar" : "Novo" }} Cliente</v-card-title>
         <v-card-text>
           <v-text-field label="Nome" v-model="form.nome" />
           <v-text-field label="E-mail" v-model="form.email" />
@@ -49,7 +49,7 @@ const headers = [
   { text: "Ações", value: "actions", sortable: false }
 ]
 
-const Clients = async () => {
+const Clientes = async () => {
   const { data } = await axios.get("/api/clients")
   clients.value = data
 }
@@ -71,13 +71,13 @@ const save = async () => {
     await axios.post("/api/clients", form.value)
   }
   showForm.value = false
-  await Clients()
+  await Clientes()
 }
 
 const remove = async (id) => {
   await axios.delete(`/api/clients/${id}`)
-  await Clients()
+  await Clientes()
 }
 
-onMounted(Clients)
+onMounted(Clientes)
 </script>

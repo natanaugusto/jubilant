@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-toolbar flat>
-      <v-toolbar-title>Orders</v-toolbar-title>
+      <v-toolbar-title>Pedidos</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" @click="openForm()">Novo Order</v-btn>
+      <v-btn color="primary" @click="openForm()">Novo Pedido</v-btn>
     </v-toolbar>
 
     <v-data-table :headers="headers" :items="orders" class="mt-4">
@@ -19,7 +19,7 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_pedido ? "Editar" : "Novo" }} Order</v-card-title>
+        <v-card-title>{{ form.id_pedido ? "Editar" : "Novo" }} Pedido</v-card-title>
         <v-card-text>
           <v-text-field label="Data" v-model="form.data" type="date" />
           <v-select
@@ -51,16 +51,25 @@ const form = ref({ id_pedido: null, data: "", id_cliente: "" })
 
 const headers = [
   { text: "ID", value: "id_pedido" },
-  { text: "Data", value: "data" },
-  { text: "Cliente", value: "id_cliente" },
+  { text: "Data", value: "formatted" },
+  { text: "Cliente", value: "cliente" },
   { text: "Ações", value: "actions", sortable: false }
 ]
 
-const Orders = async () => {
-  const { data } = await axios.get("/api/orders")
-  orders.value = data
-
+const Pedidos = async () => {
+  const { data: ordersData } = await axios.get("/api/orders")
   const { data: clientsData } = await axios.get("/api/clients")
+  ordersData.forEach((order, index) => {
+    ordersData[index].cliente = clientsData.find(
+      (client) => client.id_cliente === order.id_cliente
+    )?.nome
+
+    ordersData[index].formatted = new Date(`${order.data}T00:00:00-03:00`).toLocaleDateString(
+      "pt-BR"
+    )
+  })
+
+  orders.value = ordersData
   clients.value = clientsData
 }
 
@@ -81,13 +90,13 @@ const save = async () => {
     await axios.post("/api/orders", form.value)
   }
   showForm.value = false
-  await Orders()
+  await Pedidos()
 }
 
 const remove = async (id) => {
   await axios.delete(`/api/orders/${id}`)
-  await Orders()
+  await Pedidos()
 }
 
-onMounted(Orders)
+onMounted(Pedidos)
 </script>

@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-toolbar flat>
-      <v-toolbar-title>Products</v-toolbar-title>
+      <v-toolbar-title>Produtos</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" @click="openForm()">Novo Product</v-btn>
+      <v-btn color="primary" @click="openForm()">Novo Produto</v-btn>
     </v-toolbar>
 
     <v-data-table :headers="headers" :items="products" class="mt-4">
@@ -19,7 +19,7 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_produto ? "Editar" : "Novo" }} Product</v-card-title>
+        <v-card-title>{{ form.id_produto ? "Editar" : "Novo" }} Produto</v-card-title>
         <v-card-text>
           <v-text-field label="Nome" v-model="form.nome" />
           <v-text-field label="Preço" v-model="form.preco" type="number" />
@@ -50,7 +50,7 @@ const headers = [
   { text: "Ações", value: "actions", sortable: false }
 ]
 
-const fetchProducts = async () => {
+const fetchProdutos = async () => {
   const { data } = await axios.get(endpoint)
   products.value = data
 }
@@ -72,13 +72,13 @@ const save = async () => {
     await axios.post(endpoint, form.value)
   }
   showForm.value = false
-  await fetchProducts()
+  await fetchProdutos()
 }
 
 const remove = async (id) => {
   await axios.delete(`/api/products/${id}`)
-  await fetchProducts()
+  await fetchProdutos()
 }
 
-onMounted(fetchProducts)
+onMounted(fetchProdutos)
 </script>
