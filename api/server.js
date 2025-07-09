@@ -5,6 +5,7 @@ import conn from "./conn.js"
 import products from "./routes/products.js"
 import clients from "./routes/clients.js"
 import orders from "./routes/orders.js"
+import orderItems from "./routes/orderItems.js"
 
 config()
 
@@ -35,6 +36,7 @@ app.register(
     app.register(products, { prefix: "/products" })
     app.register(clients, { prefix: "/clients" })
     app.register(orders, { prefix: "/orders" })
+    app.register(orderItems, { prefix: "/orders" })
   },
   { prefix: "/api" }
 )

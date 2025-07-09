@@ -6,7 +6,13 @@
       <v-btn color="primary" @click="openForm()">Novo Pedido</v-btn>
     </v-toolbar>
 
-    <v-data-table :headers="headers" :items="orders" class="mt-4">
+    <v-data-table
+      :headers="headers"
+      :items="orders"
+      :hide-default-footer="true"
+      :items-per-page="false"
+      class="mt-4"
+    >
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
@@ -29,6 +35,36 @@
             item-title="nome"
             item-value="id_cliente"
           />
+          <v-select
+            label="Produto"
+            v-model="selectedProduct"
+            :items="availableProducts"
+            item-title="nome"
+            item-value="id_produto"
+            @update:modelValue="addProduct"
+          />
+          <v-data-table
+            :headers="itemsHeaders"
+            :items="form.items"
+            :hide-default-footer="true"
+            :items-per-page="false"
+          >
+            <template v-slot:[`item.qtde`]="{ item }">
+              <v-text-field
+                v-model.number="item.qtde"
+                type="number"
+                min="1"
+                dense
+                hide-details
+                @input="changeQntde(item)"
+              />
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
+              <v-btn icon @click="removeItem(item.id_produto)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -46,20 +82,34 @@ import axios from "../axios"
 
 const orders = ref([])
 const clients = ref([])
+const products = ref([])
+const availableProducts = ref([])
 const showForm = ref(false)
-const form = ref({ id_pedido: null, data: "", id_cliente: "" })
+const selectedProduct = ref(null)
+const form = ref({ id_pedido: null, data: "", id_cliente: "", items: [] })
 
 const headers = [
-  { text: "ID", value: "id_pedido" },
-  { text: "Data", value: "formatted" },
-  { text: "Cliente", value: "cliente" },
-  { text: "Ações", value: "actions", sortable: false }
+  { title: "ID", value: "id_pedido" },
+  { title: "Data", value: "formatted" },
+  { title: "Cliente", value: "cliente" },
+  { title: "Ações", value: "actions", sortable: false }
+]
+
+const itemsHeaders = [
+  { title: "Produto", value: "nome" },
+  { title: "Qtde", value: "qtde" },
+  { title: "Preço", value: "preco" },
+  { title: "Ações", value: "actions", sortable: false }
 ]
 
 const Pedidos = async () => {
   const { data: ordersData } = await axios.get("/api/orders")
   const { data: clientsData } = await axios.get("/api/clients")
-  ordersData.forEach((order, index) => {
+  const { data: productsData } = await axios.get("/api/products")
+  clients.value = clientsData
+  products.value = productsData
+
+  ordersData.forEach(async (order, index) => {
     ordersData[index].cliente = clientsData.find(
       (client) => client.id_cliente === order.id_cliente
     )?.nome
@@ -67,28 +117,39 @@ const Pedidos = async () => {
     ordersData[index].formatted = new Date(`${order.data}T00:00:00-03:00`).toLocaleDateString(
       "pt-BR"
     )
+
+    const { data: itemsData } = (await axios.get(`/api/orders/${order.id_pedido}/items`)) || []
+
+    ordersData[index].items = itemsData.map((item) => {
+      const prod = getProductsById(item.id_produto)
+      return {
+        ...item,
+        nome: prod.nome
+      }
+    })
   })
 
   orders.value = ordersData
-  clients.value = clientsData
 }
 
-const openForm = () => {
-  form.value = { id_pedido: null, data: "", id_cliente: "" }
-  showForm.value = true
-}
-
-const edit = (item) => {
-  form.value = { ...item }
+const openForm = async () => {
+  availableProducts.value = [...products.value]
+  form.value = { id_pedido: null, data: "", id_cliente: "", items: [] }
+  selectedProduct.value = null
   showForm.value = true
 }
 
 const save = async () => {
-  if (form.value.id_pedido) {
-    await axios.put(`/api/orders/${form.value.id_pedido}`, form.value)
+  const { id_cliente, data, items } = form.value
+  let { id_pedido } = form.value
+
+  if (id_pedido) {
+    await axios.put(`/api/orders/${id_pedido}`, { id_cliente, id_pedido, data })
   } else {
-    await axios.post("/api/orders", form.value)
+    const [data] = await axios.post("/api/orders", { id_cliente, id_pedido, data })
+    id_pedido = data.id
   }
+  await axios.post(`/api/orders/${id_pedido}/items`, items)
   showForm.value = false
   await Pedidos()
 }
@@ -96,6 +157,52 @@ const save = async () => {
 const remove = async (id) => {
   await axios.delete(`/api/orders/${id}`)
   await Pedidos()
+}
+
+const edit = (item) => {
+  form.value = { ...item }
+  availableProducts.value = products.value.filter(
+    (p) => !item.items.some((i) => i.id_produto === p.id_produto)
+  )
+  showForm.value = true
+}
+
+const addProduct = (productId) => {
+  if (!productId) return
+
+  const product = getProductsById(productId)
+  if (product) {
+    form.value.items.push({
+      id_produto: product.id_produto,
+      nome: product.nome,
+      qtde: 1,
+      preco: product.preco
+    })
+
+    availableProducts.value = availableProducts.value.filter((p) => p.id_produto !== productId)
+    selectedProduct.value = null
+  }
+}
+
+const removeItem = (productId) => {
+  const product = form.value.items.find((p) => p.id_produto === productId)
+  if (product) {
+    availableProducts.value.push(getProductsById(productId))
+    form.value.items = form.value.items.filter((p) => p.id_produto !== productId)
+  }
+}
+
+const changeQntde = (item) => {
+  if (!item.qtde || item.qtde < 1) {
+    item.qtde = 1 // Reset to 1 if invalid
+  }
+
+  const { preco } = getProductsById(item.id_produto)
+  item.preco = preco * item.qtde
+}
+
+function getProductsById(productId) {
+  return products.value.find((p) => p.id_produto === productId)
 }
 
 onMounted(Pedidos)

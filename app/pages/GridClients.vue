@@ -6,7 +6,13 @@
       <v-btn color="primary" @click="openForm()">Novo Cliente</v-btn>
     </v-toolbar>
 
-    <v-data-table :headers="headers" :items="clients" class="mt-4">
+    <v-data-table
+      :headers="headers"
+      :items="clients"
+      :hide-default-footer="true"
+      :items-per-page="false"
+      class="mt-4"
+    >
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
@@ -43,10 +49,10 @@ const showForm = ref(false)
 const form = ref({ id_cliente: null, nome: "", email: "" })
 
 const headers = [
-  { text: "ID", value: "id_cliente" },
-  { text: "Nome", value: "nome" },
-  { text: "E-mail", value: "email" },
-  { text: "Ações", value: "actions", sortable: false }
+  { title: "ID", value: "id_cliente" },
+  { title: "Nome", value: "nome" },
+  { title: "E-mail", value: "email" },
+  { title: "Ações", value: "actions", sortable: false }
 ]
 
 const Clientes = async () => {

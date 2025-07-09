@@ -6,7 +6,13 @@
       <v-btn color="primary" @click="openForm()">Novo Produto</v-btn>
     </v-toolbar>
 
-    <v-data-table :headers="headers" :items="products" class="mt-4">
+    <v-data-table
+      :headers="headers"
+      :items="products"
+      :hide-default-footer="true"
+      :items-per-page="false"
+      class="mt-4"
+    >
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
@@ -44,10 +50,10 @@ const form = ref({ id_produto: null, nome: "", preco: "" })
 const endpoint = "/api/products"
 
 const headers = [
-  { text: "ID", value: "id_produto" },
-  { text: "Nome", value: "nome" },
-  { text: "Preço", value: "preco" },
-  { text: "Ações", value: "actions", sortable: false }
+  { title: "ID", value: "id_produto" },
+  { title: "Nome", value: "nome" },
+  { title: "Preço", value: "preco" },
+  { title: "Ações", value: "actions", sortable: false }
 ]
 
 const fetchProdutos = async () => {

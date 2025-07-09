@@ -1,441 +1,530 @@
 {
-  "info": {
-    "_postman_id": "d101ab51-0c65-4555-8963-6708a29b81d6",
-    "name": "API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "2851391"
-  },
-  "item": [
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "products",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/products",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "products"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "product",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/products/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "products",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "products",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 99.99\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/products",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "products"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "products",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 0.99\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/products/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "products",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "products",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 0.99\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/products/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "products",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Clients",
-      "item": [
-        {
-          "name": "clients",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/clients",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "clients"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "client",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/clients/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "clients",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "clients",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Client One\",\n    \"email\": \"client@one.com\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/clients",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "clients"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "clients",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Client One\",\n    \"email\": \"client@mail.com\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/clients/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "clients",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "clients",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"nome\": \"Client One\",\n    \"email\": 0.99\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/clients/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "clients",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Orders",
-      "item": [
-        {
-          "name": "orders",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/orders",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "orders"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "order",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:{{port}}/api/orders/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "orders",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "orders",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"data\": \"2025-01-01\",\n    \"id_cliente\": 1\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/orders",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "orders"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "orders",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"data\": \"2025-01-31\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/orders/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "orders",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "orders",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"data\": \"2025-01-01\",\n    \"id_cliente\": 0.99\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:{{port}}/api/orders/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "{{port}}",
-              "path": [
-                "api",
-                "orders",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "ping",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:{{port}}/api/ping",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "{{port}}",
-          "path": [
-            "api",
-            "ping"
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-  "variable": [
-    {
-      "key": "port",
-      "value": "3000"
-    }
-  ]
+	"info": {
+		"_postman_id": "8ae40ce4-4b92-474c-af1e-abff73de6393",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2851391"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 99.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 0.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Product One\",\n    \"preco\": 0.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Client One\",\n    \"email\": \"client@one.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clients",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Client One\",\n    \"email\": \"client@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clients",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Client One\",\n    \"email\": 0.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Items",
+					"item": [
+						{
+							"name": "items",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{port}}/api/orders/1/items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"orders",
+										"1",
+										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "items",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"id_produto\": 1,\n        \"qtde\": 2,\n        \"preco\": 4\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/api/orders/1/items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"orders",
+										"1",
+										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "items",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"data\": \"2025-01-01\",\n    \"id_cliente\": 0.99\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/api/orders/1/items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"orders",
+										"1",
+										"items"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/api/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": \"2025-01-01\",\n    \"id_cliente\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": \"2025-01-31\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": \"2025-01-01\",\n    \"id_cliente\": 0.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/api/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/api/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "3000"
+		}
+	]
 }
