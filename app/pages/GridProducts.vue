@@ -6,12 +6,8 @@
       <v-btn color="primary" @click="openForm()">Novo Product</v-btn>
     </v-toolbar>
 
-    <v-data-table
-      :headers="headers"
-      :items="products"
-      class="mt-4"
-    >
-      <template #item.actions="{ item }">
+    <v-data-table :headers="headers" :items="products" class="mt-4">
+      <template v-slot:[`item.actions`]="{ item }">
         <v-btn icon @click="edit(item)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -23,7 +19,7 @@
 
     <v-dialog v-model="showForm" max-width="500px">
       <v-card>
-        <v-card-title>{{ form.id_produto ? 'Editar' : 'Novo' }} Product</v-card-title>
+        <v-card-title>{{ form.id_produto ? "Editar" : "Novo" }} Product</v-card-title>
         <v-card-text>
           <v-text-field label="Nome" v-model="form.nome" />
           <v-text-field label="Preço" v-model="form.preco" type="number" />
@@ -39,19 +35,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from '../axios'
+import { ref, onMounted } from "vue"
+import axios from "../axios"
 
 const products = ref([])
 const showForm = ref(false)
-const form = ref({ id_produto: null, nome: '', preco: '' })
+const form = ref({ id_produto: null, nome: "", preco: "" })
 const endpoint = "/api/products"
 
 const headers = [
-  { text: 'ID', value: 'id_produto' },
-  { text: 'Nome', value: 'nome' },
-  { text: 'Preço', value: 'preco' },
-  { text: 'Ações', value: 'actions', sortable: false },
+  { text: "ID", value: "id_produto" },
+  { text: "Nome", value: "nome" },
+  { text: "Preço", value: "preco" },
+  { text: "Ações", value: "actions", sortable: false }
 ]
 
 const fetchProducts = async () => {
@@ -60,7 +56,7 @@ const fetchProducts = async () => {
 }
 
 const openForm = () => {
-  form.value = { id_produto: null, nome: '', preco: '' }
+  form.value = { id_produto: null, nome: "", preco: "" }
   showForm.value = true
 }
 

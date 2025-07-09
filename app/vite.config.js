@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
 
 export default defineConfig({
   plugins: [vue()],
@@ -10,4 +10,4 @@ export default defineConfig({
     host: process.env.WEB_HOST || "localhost",
     port: process.env.APP_PORT ? parseInt(process.env.APP_PORT) : 4000
   }
-});
+})

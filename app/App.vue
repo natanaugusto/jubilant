@@ -4,6 +4,6 @@
 </template>
 
 <script setup>
-import 'vuetify/styles';
-import DefaultLayout from './Layout.vue'
+import "vuetify/styles"
+import DefaultLayout from "./DefaultLayout.vue"
 </script>

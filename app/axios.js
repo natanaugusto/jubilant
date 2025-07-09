@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-console.log(API_URL)
+import axios from "axios"
 
 export default axios.create({
   baseURL: API_URL

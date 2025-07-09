@@ -9,10 +9,12 @@
           v-for="item of navItems"
           :key="item.title"
           :to="item.to"
-          :link=true
-          :router=true
+          :link="true"
+          :router="true"
         >
-          <v-list-item-icon><v-icon>{{ item.icon }}</v-icon></v-list-item-icon>
+          <v-list-item-icon
+            ><v-icon>{{ item.icon }}</v-icon></v-list-item-icon
+          >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -28,9 +30,9 @@
 
 <script setup>
 const navItems = [
-  { title: 'Produtos', icon: 'mdi-cart', to: '/produtos' },
-  { title: 'Clientes', icon: 'mdi-account', to: '/clientes' },
-  { title: 'Pedidos', icon: 'mdi-receipt', to: '/pedidos' },
+  { title: "Produtos", icon: "mdi-cart", to: "/produtos" },
+  { title: "Clientes", icon: "mdi-account", to: "/clientes" },
+  { title: "Pedidos", icon: "mdi-receipt", to: "/pedidos" }
   // { title: 'Pedido Itens', icon: 'mdi-format-list-bulleted', to: '/pedido-itens' },
 ]
 </script>
