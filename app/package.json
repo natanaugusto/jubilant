@@ -4,7 +4,8 @@
   "version": "beta",
   "author": "Natan Augusto <natanaugusto@gmail.com>",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "format:fix": "eslint . --fix"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^6.0.0",

@@ -5,7 +5,8 @@
   "type": "module",
   "author": "Natan Augusto <natanaugusto@gmail.com>",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "format:fix": "eslint . --fix"
   },
   "dependencies": {
     "@fastify/cors": "^11.0.1",

@@ -75,5 +75,17 @@ dev: ## Start the Web App and API servers in develop mode
 	@echo -e "$(BLUE)Starting Web App and API servers in development mode...$(NC)"
 	$(EXEC_CMD) "pnpm run dev"
 
+api\:format\:fix: ## Run the format fix for API
+	@echo -e "$(BLUE)Starting API server in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run api:format:fix"
+
+app\:format\:fix: ## Run the format fix for Web App
+	@echo -e "$(BLUE)Starting Web App server in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run app:format:fix"
+
+format\:fix: ## Run the format fix for Web App and API
+	@echo -e "$(BLUE)Starting Web App and API servers in development mode...$(NC)"
+	$(EXEC_CMD) "pnpm run format:fix"
+
 %:
 	@:
