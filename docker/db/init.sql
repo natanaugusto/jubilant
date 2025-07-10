@@ -8,20 +8,20 @@ CREATE TABLE IF NOT EXISTS Produtos (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     preco DECIMAL(10, 2) NOT NULL
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Pedidos (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     data DATE NOT NULL,
     id_cliente INT,
-    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
-);
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Pedido_Itens (
     id_pedido_item INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,6 +29,6 @@ CREATE TABLE IF NOT EXISTS Pedido_Itens (
     id_produto INT,
     qtde INT NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido),
-    FOREIGN KEY (id_produto) REFERENCES Produtos(id_produto)
-);
+    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido) ON DELETE CASCADE,
+    FOREIGN KEY (id_produto) REFERENCES Produtos(id_produto) ON DELETE CASCADE
+) ENGINE=InnoDB;

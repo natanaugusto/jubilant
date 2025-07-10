@@ -1,0 +1,144 @@
+# 🍬 Candy Shop — Fullstack Monorepo App
+
+A full-stack monorepo project using:
+
+- **Frontend:** Vue 3 + Vuetify + Vite
+- **Backend:** Fastify + MySQL (mysql2)
+- **Database:** MySQL with Docker + init script
+- **Package Manager:** PNPM + Workspaces
+- **Linting & Formatting:** ESLint + Prettier
+- **Dev Tools:** Docker, Makefile
+
+---
+
+## 📁 Project Structure
+
+.
+├── app/ # Frontend (Vue 3 + Vuetify)
+├── api/ # Backend (Fastify + MySQL2)
+├── docker/ # Docker files & config
+├── .env # Environment variables
+├── docker-compose.yaml
+├── Makefile
+├── package.json # Root workspace file
+└── README.md
+
+---
+
+## 🚀 Getting Started
+
+### 📦 Requirements
+
+- [Node.js 22+](https://nodejs.org/)
+- [PNPM](https://pnpm.io/)
+- [Docker](https://www.docker.com/)
+- GNU Make (for Linux/macOS)
+
+---
+
+### ⚙️ Environment Variables
+
+Create a `.env` file at the root:
+
+```env
+# Database
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=candyshop
+DB_USER=candy
+DB_PASSWORD=secret
+DB_ROOT_PASSWORD=root
+
+# API
+API_HOST=http://localhost:3000
+
+# Frontend
+WEB_HOST=localhost
+APP_PORT=4000
+```
+
+🐳 Run with Docker
+
+### Running the project
+
+```bash
+make up # Start the containers
+
+make dev # Start the services API and App in development mode
+```
+
+### All Makefile commands
+
+```bash
+## Start all containers
+make up
+
+## Stop all containers
+make down
+
+## Build Docker images
+make build
+
+## Clean up containers, volumes, and images
+make clean
+
+## Show container status
+make status
+
+## Access the database container
+make db
+
+## Run pnpm commands in the web container
+make pnpm
+
+## Start the API server in development mode
+make api:dev
+
+## Start the Web App server in development mode
+make app:dev
+
+## Start the Web App and API servers in develop mode
+make dev
+
+## Run the format fix for API
+make api:format:fix
+
+## Run the format fix for Web App
+make app:format:fix
+
+## Run the format fix for Web App and API
+make format:fix
+
+```
+
+🔧 API — Backend (Fastify)
+
+Access: [http://localhost:3000](http://localhost:3000)
+
+**(There's a [Postman](./api/API.postman_collection.json) for this project)**
+
+🎨 Frontend (Vue + Vuetify)
+
+Access: [http://localhost:4000](http://localhost:4000)
+
+🗃 Database Schema
+
+- Produtos:
+  - id_produto
+  - nome
+  - preco
+- Clientes:
+  - id_cliente
+  - nome
+  - email
+- Pedidos:
+  - id_pedido
+  - data
+  - id_cliente
+- Pedido_Itens:
+  - id_pedido_item
+  - id_pedido
+  - id_produto
+  - qtde preco
+
+<img src="./docker/db/ERD.png" alt="ERD" />
