@@ -142,3 +142,7 @@ Access: [http://localhost:4000](http://localhost:4000)
   - qtde preco
 
 <img src="./docker/db/ERD.png" alt="ERD" />
+
+### ChatGPT
+
+This is the chat from [ChatGPT](https://chatgpt.com/share/68704dc7-1b7c-8003-9c7e-b73554202b45)
