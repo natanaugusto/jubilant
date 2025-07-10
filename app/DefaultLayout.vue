@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer app permanent>
       <v-list>
-        <v-list-item-title class="text-h6">Candy Shop</v-list-item-title>
+        <v-list-item-title class="text-h6">Jubilant</v-list-item-title>
         <v-divider />
 
         <v-list-item

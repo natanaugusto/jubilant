@@ -1,4 +1,4 @@
-# 🍬 Candy Shop — Fullstack Monorepo App
+# 🍬 Jubilant — Fullstack Monorepo App
 
 A full-stack monorepo project using:
 
@@ -44,8 +44,8 @@ Create a `.env` file at the root:
 # Database
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=candyshop
-DB_USER=candy
+DB_DATABASE=jubilant
+DB_USER=jubilant
 DB_PASSWORD=secret
 DB_ROOT_PASSWORD=root
 

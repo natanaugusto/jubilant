@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "description": "API for the Candy Shop application",
+  "description": "API for the Jubilant application",
   "version": "beta",
   "type": "module",
   "author": "Natan Augusto <natanaugusto@gmail.com>",
