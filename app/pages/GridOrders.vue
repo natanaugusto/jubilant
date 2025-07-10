@@ -146,8 +146,8 @@ const save = async () => {
   if (id_pedido) {
     await axios.put(`/api/orders/${id_pedido}`, { id_cliente, id_pedido, data })
   } else {
-    const [data] = await axios.post("/api/orders", { id_cliente, id_pedido, data })
-    id_pedido = data.id
+    const response = await axios.post("/api/orders", { id_cliente, id_pedido, data })
+    id_pedido = response.data.id
   }
   await axios.post(`/api/orders/${id_pedido}/items`, items)
   showForm.value = false
