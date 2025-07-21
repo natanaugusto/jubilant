@@ -10,7 +10,7 @@
       :headers="headers"
       :items="clients"
       :hide-default-footer="true"
-      :items-per-page="false"
+      :items-per-page="-1"
       class="mt-4"
     >
       <template v-slot:[`item.actions`]="{ item }">

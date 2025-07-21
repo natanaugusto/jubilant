@@ -5,7 +5,7 @@
   "type": "module",
   "author": "Natan Augusto <natanaugusto@gmail.com>",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "node --watch server.js",
     "format:fix": "eslint . --fix"
   },
   "dependencies": {

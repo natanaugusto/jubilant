@@ -2,7 +2,13 @@ export default async function (app) {
   const db = app.conn
 
   app.get("/", async () => {
-    const [rows] = await db.query("SELECT * FROM Pedidos")
+    const [rows] = await db.query(
+      "SELECT \n" +
+        "p.*, SUM(pi.preco) as total \n" +
+        "FROM Pedidos p \n" +
+        "INNER JOIN Pedido_Itens pi ON p.id_pedido = pi.id_pedido \n" +
+        "GROUP BY p.id_pedido, p.data, p.id_cliente"
+    )
     return rows
   })
 

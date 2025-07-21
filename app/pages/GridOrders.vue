@@ -10,7 +10,7 @@
       :headers="headers"
       :items="orders"
       :hide-default-footer="true"
-      :items-per-page="false"
+      :items-per-page="-1"
       class="mt-4"
     >
       <template v-slot:[`item.actions`]="{ item }">
@@ -47,7 +47,7 @@
             :headers="itemsHeaders"
             :items="form.items"
             :hide-default-footer="true"
-            :items-per-page="false"
+            :items-per-page="-1"
           >
             <template v-slot:[`item.qtde`]="{ item }">
               <v-text-field
@@ -92,6 +92,7 @@ const headers = [
   { title: "ID", value: "id_pedido" },
   { title: "Data", value: "formatted" },
   { title: "Cliente", value: "cliente" },
+  { title: "Total", value: "total" },
   { title: "Ações", value: "actions", sortable: false }
 ]
 
@@ -103,33 +104,42 @@ const itemsHeaders = [
 ]
 
 const Pedidos = async () => {
-  const { data: ordersData } = await axios.get("/api/orders")
-  const { data: clientsData } = await axios.get("/api/clients")
-  const { data: productsData } = await axios.get("/api/products")
+  const [ordersResponse, clientsResponse, productsResponse] = await Promise.all([
+    axios.get("/api/orders"),
+    axios.get("/api/clients"),
+    axios.get("/api/products")
+  ])
+
+  const ordersData = ordersResponse.data
+  const clientsData = clientsResponse.data
+  const productsData = productsResponse.data
+
+  const clientMap = new Map(clientsData.map((client) => [client.id_cliente, client.nome]))
+  const productMap = new Map(productsData.map((product) => [product.id_produto, product.nome]))
+
+  const itemPromises = ordersData.map((order) =>
+    axios.get(`/api/orders/${order.id_pedido}/items`).then((res) => ({
+      id_pedido: order.id_pedido,
+      items: res.data
+    }))
+  )
+  const itemsResponses = await Promise.all(itemPromises)
+  const itemsMap = new Map(itemsResponses.map((response) => [response.id_pedido, response.items]))
+
+  const transformedOrders = ordersData.map((order) => ({
+    ...order,
+    cliente: clientMap.get(order.id_cliente) || "Unknown",
+    formatted: new Date(`${order.data}T00:00:00-03:00`).toLocaleDateString("pt-BR"),
+    items: (itemsMap.get(order.id_pedido) || []).map((item) => ({
+      ...item,
+      nome: productMap.get(item.id_produto) || "Unknown"
+    }))
+  }))
+
+  // Assign to reactive state
   clients.value = clientsData
   products.value = productsData
-
-  ordersData.forEach(async (order, index) => {
-    ordersData[index].cliente = clientsData.find(
-      (client) => client.id_cliente === order.id_cliente
-    )?.nome
-
-    ordersData[index].formatted = new Date(`${order.data}T00:00:00-03:00`).toLocaleDateString(
-      "pt-BR"
-    )
-
-    const { data: itemsData } = (await axios.get(`/api/orders/${order.id_pedido}/items`)) || []
-
-    ordersData[index].items = itemsData.map((item) => {
-      const prod = getProductsById(item.id_produto)
-      return {
-        ...item,
-        nome: prod.nome
-      }
-    })
-  })
-
-  orders.value = ordersData
+  orders.value = transformedOrders
 }
 
 const openForm = async () => {
